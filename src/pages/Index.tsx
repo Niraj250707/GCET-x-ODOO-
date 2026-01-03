@@ -184,7 +184,7 @@ export default function Index() {
             </div>
             <span className="font-display font-semibold">Dayflow HRMS</span>
           </div>
-          <p>© 2025 Dayflow. Built for Hackathon. All rights reserved.</p>
+          <p>© 2026 Dayflow. Built by INFINITE CODING. All rights reserved.</p>
         </div>
       </footer>
     </div>

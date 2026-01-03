@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, ArrowRight, Shield } from "lucide-react";
 
 export default function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<"admin" | "hr" | "manager" | "employee">("employee");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const roles = [
+    { value: "admin", label: "Admin", description: "Full system access" },
+    { value: "hr", label: "HR", description: "HR operations" },
+    { value: "manager", label: "Manager", description: "Team management" },
+    { value: "employee", label: "Employee", description: "Employee access" },
+  ] as const;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,6 +101,31 @@ export default function Login() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Role Selection */}
+            <div className="space-y-3">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <Shield className="w-4 h-4" />
+                Select Your Role
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                {roles.map((role) => (
+                  <button
+                    key={role.value}
+                    type="button"
+                    onClick={() => setSelectedRole(role.value)}
+                    className={`p-3 rounded-lg border-2 transition-all text-left ${
+                      selectedRole === role.value
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <div className="font-medium text-sm">{role.label}</div>
+                    <div className="text-xs text-muted-foreground">{role.description}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Email */}
             <div className="space-y-2">
               <label className="text-sm font-medium">Email Address</label>
